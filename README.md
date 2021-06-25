@@ -54,24 +54,24 @@ Output:
 class Foo
 {
 public:
-	int id;
-	Foo(int id)
-		:id(id)
-	{
-	}
+    int id;
+    Foo(int id)
+	:id(id)
+    {
+    } 
 
-	void PrintStuff(int param1,std::string param2)
-	{
-		std::cout << id << " : " << param1 << param2  << endl;
-	}
+        void PrintStuff(int param1,std::string param2)
+    {
+    	std::cout << id << " : " << param1 << param2  << endl;
+    }
 };
 
 int main()
 {
-	Action<int,std::string> action;
-	Foo foo(3);
-	action.SubscribeMethod(&Foo::PrintStuff, foo);
-	action.Call(1," Hellow");
+    Action<int,std::string> action;
+    Foo foo(3);
+    action.SubscribeMethod(&Foo::PrintStuff, foo);
+    action.Call(1," Hellow");
 }
 ```
 
