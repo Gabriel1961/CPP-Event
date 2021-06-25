@@ -23,7 +23,7 @@ int main()
 
 ```
 
-> Subscribing to an event
+> Subscribing to an event and Triggering the event
 
 ```C++
 void PrintStuff(int a)
@@ -31,13 +31,12 @@ void PrintStuff(int a)
     std::cout << a << endl;
 }
 
->Triggering the event
-
-```C++
 int main 
 {
     Action<int> action;
-    action += [](int a){ PrintStuff(a);}; 
+    action += PrintStuff; // subscribe using the += operator
+    action += [](int a){ PrintStuff(a);}; // also works with a lambda expression
+    
     action(1); // or you can do action.Call(1);
     // in parenthesis are the parameters requiered to run the functions subscribed to the event
 }
@@ -46,14 +45,7 @@ int main
 ```
 Output:
 1
-```
-
-int main()
-{
-    Action<int> action;
-    action += PrintStuff; // subscribe to the event
-    action += [](int a){ PrintStuff(a);}; // also works with a lambda expression
-}
+1
 ```
 
 >Subscribing with a member function to an event
@@ -68,17 +60,22 @@ public:
 	{
 	}
 
-	void PrintStuff(int param)
+	void PrintStuff(int param1,std::string param2)
 	{
-		std::cout << id << " : " << param << endl;
+		std::cout << id << " : " << param1 << param2  << endl;
 	}
 };
 
 int main()
 {
-	Action<int> action;
+	Action<int,std::string> action;
 	Foo foo(3);
 	action.SubscribeMethod(&Foo::PrintStuff, foo);
-	action.Call(1);
+	action.Call(1," Hellow");
 }
+```
+
+```
+Output:
+3 : 1 Hellow
 ```
