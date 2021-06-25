@@ -31,10 +31,54 @@ void PrintStuff(int a)
     std::cout << a << endl;
 }
 
+>Triggering the event
+
+```C++
+int main 
+{
+    Action<int> action;
+    action += [](int a){ PrintStuff(a);}; 
+    action(1); // or you can do action.Call(1);
+    // in parenthesis are the parameters requiered to run the functions subscribed to the event
+}
+```
+
+```
+Output:
+1
+```
+
 int main()
 {
     Action<int> action;
     action += PrintStuff; // subscribe to the event
     action += [](int a){ PrintStuff(a);}; // also works with a lambda expression
+}
+```
+
+>Subscribing with a member function to an event
+
+```C++
+class Foo
+{
+public:
+	int id;
+	Foo(int id)
+		:id(id)
+	{
+	}
+
+	void PrintStuff(int param)
+	{
+		std::cout << id << " : " << param << endl;
+	}
+};
+
+int main()
+{
+	Action<int> action;
+	Foo foo(3);
+	action.SubscribeMethod(&Foo::PrintStuff, foo);
+	action.Call(1);
 }
 ```
