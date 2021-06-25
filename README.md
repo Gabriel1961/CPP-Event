@@ -10,7 +10,7 @@ Download the Action.h file, from the repository and than just add it to your pro
 
 ## Example
 
-> Creating a event 
+> Creating an event 
 ```C++
 using namespace EventSystem;
 int main()
