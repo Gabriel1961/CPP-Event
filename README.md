@@ -7,17 +7,34 @@ Download the Action.h file, from the repository and than just add it to your pro
 ```C++
 #include "Action.h"
 ```
-##Example
+
+## Example
 
 > Creating a event 
 ```C++
 using namespace EventSystem;
 int main()
 {
-    Action action;
+    Action action; // No parameters 
     Action<int> action; // template types represent the types of the parameters
     Action<int,string> action;
     Action<double,int,const char*> action;
 }
 
+```
+
+> Subscribing to an event
+
+```C++
+void PrintStuff(int a)
+{
+    std::cout << a << endl;
+}
+
+int main()
+{
+    Action<int> action;
+    action += PrintStuff; // subscribe to the event
+    action += [](int a){ PrintStuff(a);}; // also works with a lambda expression
+}
 ```
